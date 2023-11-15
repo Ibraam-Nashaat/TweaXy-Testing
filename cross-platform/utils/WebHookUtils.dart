@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:html/parser.dart';
 
 class WebHookUtils {
   String token = "";
@@ -28,5 +29,15 @@ class WebHookUtils {
       token = tokenData['uuid'];
     }
     return token;
+  }
+
+  Future<String> getResetPasswordVerificationCode() async {
+    token = "ae05f13a-0271-4aa3-b6d2-de98a3838d73";
+    final tokenResponse = await http
+        .get(Uri.parse("https://webhook.site/token/$token/request/latest"));
+    final tokenData = jsonDecode(tokenResponse.body);
+    final html = tokenData['text_content'];
+    final document = parse(html);
+    return document.querySelector('h4')!.text;
   }
 }
