@@ -5,9 +5,11 @@ import 'package:tweaxy/main.dart' as app;
 import 'package:tweaxy/shared/errors/validation_errors.dart';
 import 'package:tweaxy/shared/keys/sign_in_keys.dart';
 import './utils/WebHookUtils.dart';
+import 'utils/registered_users.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final token = users[1][0].substring(0, users[1][0].indexOf('@'));
 
   group('Forget password Tests:', () {
     testWidgets('Change Password successfully', (WidgetTester tester) async {
@@ -23,8 +25,7 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var forgetPassEmailTextField =
           find.byKey(const ValueKey(SignInKeys.forgetPasswordEmailFieldKey));
-      await tester.enterText(forgetPassEmailTextField,
-          'ae05f13a-0271-4aa3-b6d2-de98a3838d73@email.webhook.site');
+      await tester.enterText(forgetPassEmailTextField, users[1][0]);
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       expect(nextButton, findsOneWidget);
@@ -34,7 +35,8 @@ void main() {
           .byKey(const ValueKey(SignInKeys.forgetPasswordVerificationFieldKey));
       final webHook = WebHookUtils();
       await tester.pumpAndSettle(const Duration(seconds: 10));
-      final verificationCode = await webHook.getResetPasswordVerificationCode();
+      final verificationCode =
+          await webHook.getResetPasswordVerificationCode(token);
       print(verificationCode);
       await tester.enterText(verificationCodeTextField, verificationCode);
       await tester.pumpAndSettle(const Duration(seconds: 1));
@@ -43,10 +45,10 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var newPasswordTextField = find
           .byKey(const ValueKey(SignInKeys.forgetPasswordNewPasswordFieldKey));
-      await tester.enterText(newPasswordTextField, 'Kalawy@1234');
+      await tester.enterText(newPasswordTextField, users[1][1]);
       newPasswordTextField = find.byKey(
           const ValueKey(SignInKeys.forgetPasswordConfirmNewPasswordFieldKey));
-      await tester.enterText(newPasswordTextField, 'Kalawy@1234');
+      await tester.enterText(newPasswordTextField, users[1][1]);
       await tester.pumpAndSettle(const Duration(seconds: 1));
       nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       await tester.ensureVisible(nextButton);
@@ -54,6 +56,33 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
       nextButton = find
           .byKey(const ValueKey(SignInKeys.forgetPasswordContinueButtonKey));
+      await tester.tap(nextButton);
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+      expect(find.text('For you'), findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+    });
+
+    testWidgets('Sign in Successfully after changing password',
+        (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      var logInButton =
+          find.byKey(const ValueKey(SignInKeys.welcomePageLogInButton));
+      await tester.tap(logInButton);
+      await tester.pumpAndSettle();
+      var emailTextField = find.byKey(const ValueKey(SignInKeys.emailFieldKey));
+      await tester.enterText(emailTextField, users[1][0]);
+      var nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.ensureVisible(nextButton);
+      await tester.tap(nextButton);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      var passwordTextField =
+          find.byKey(const ValueKey(SignInKeys.passwordFieldKey));
+      await tester.enterText(passwordTextField, users[1][1]);
+      nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.ensureVisible(nextButton);
       await tester.tap(nextButton);
       await tester.pumpAndSettle(const Duration(seconds: 3));
       expect(find.text('For you'), findsOneWidget);
@@ -100,8 +129,7 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var forgetPassEmailTextField =
           find.byKey(const ValueKey(SignInKeys.forgetPasswordEmailFieldKey));
-      await tester.enterText(forgetPassEmailTextField,
-          'ae05f13a-0271-4aa3-b6d2-de98a3838d73@email.webhook.site');
+      await tester.enterText(forgetPassEmailTextField, users[1][0]);
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       expect(nextButton, findsOneWidget);
@@ -134,8 +162,7 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var forgetPassEmailTextField =
           find.byKey(const ValueKey(SignInKeys.forgetPasswordEmailFieldKey));
-      await tester.enterText(forgetPassEmailTextField,
-          'ae05f13a-0271-4aa3-b6d2-de98a3838d73@email.webhook.site');
+      await tester.enterText(forgetPassEmailTextField, users[1][0]);
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       expect(nextButton, findsOneWidget);
@@ -145,7 +172,8 @@ void main() {
           .byKey(const ValueKey(SignInKeys.forgetPasswordVerificationFieldKey));
       final webHook = WebHookUtils();
       await tester.pumpAndSettle(const Duration(seconds: 10));
-      final verificationCode = await webHook.getResetPasswordVerificationCode();
+      final verificationCode =
+          await webHook.getResetPasswordVerificationCode(token);
       print(verificationCode);
       await tester.enterText(verificationCodeTextField, verificationCode);
       await tester.pumpAndSettle(const Duration(seconds: 1));
@@ -182,8 +210,7 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var forgetPassEmailTextField =
           find.byKey(const ValueKey(SignInKeys.forgetPasswordEmailFieldKey));
-      await tester.enterText(forgetPassEmailTextField,
-          'ae05f13a-0271-4aa3-b6d2-de98a3838d73@email.webhook.site');
+      await tester.enterText(forgetPassEmailTextField, users[1][0]);
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       expect(nextButton, findsOneWidget);
@@ -193,7 +220,8 @@ void main() {
           .byKey(const ValueKey(SignInKeys.forgetPasswordVerificationFieldKey));
       final webHook = WebHookUtils();
       await tester.pumpAndSettle(const Duration(seconds: 10));
-      final verificationCode = await webHook.getResetPasswordVerificationCode();
+      final verificationCode =
+          await webHook.getResetPasswordVerificationCode(token);
       print(verificationCode);
       await tester.enterText(verificationCodeTextField, verificationCode);
       await tester.pumpAndSettle(const Duration(seconds: 1));

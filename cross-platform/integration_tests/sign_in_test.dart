@@ -19,7 +19,7 @@ void main() {
       await tester.tap(logInButton);
       await tester.pumpAndSettle();
       var emailTextField = find.byKey(const ValueKey(SignInKeys.emailFieldKey));
-      await tester.enterText(emailTextField, registeredUserEmail);
+      await tester.enterText(emailTextField, users[0][0]);
       var nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       await tester.pumpAndSettle(const Duration(seconds: 1));
       await tester.ensureVisible(nextButton);
@@ -27,7 +27,7 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
       var passwordTextField =
           find.byKey(const ValueKey(SignInKeys.passwordFieldKey));
-      await tester.enterText(passwordTextField, registeredUserPassword);
+      await tester.enterText(passwordTextField, users[0][1]);
       nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       await tester.pumpAndSettle(const Duration(seconds: 1));
       await tester.ensureVisible(nextButton);
@@ -63,7 +63,7 @@ void main() {
       await tester.tap(logInButton);
       await tester.pumpAndSettle();
       var emailTextField = find.byKey(const ValueKey(SignInKeys.emailFieldKey));
-      await tester.enterText(emailTextField, registeredUserEmail);
+      await tester.enterText(emailTextField, users[0][0]);
       var nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       await tester.pumpAndSettle(const Duration(seconds: 1));
       await tester.ensureVisible(nextButton);
