@@ -31,8 +31,7 @@ class WebHookUtils {
     return token;
   }
 
-  Future<String> getResetPasswordVerificationCode() async {
-    token = "ae05f13a-0271-4aa3-b6d2-de98a3838d73";
+  Future<String> getResetPasswordVerificationCode(token) async {
     final tokenResponse = await http
         .get(Uri.parse("https://webhook.site/token/$token/request/latest"));
     final tokenData = jsonDecode(tokenResponse.body);
