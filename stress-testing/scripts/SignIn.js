@@ -18,13 +18,9 @@ export default function () {
         'Content-Type': 'application/json',
     };
 
-    let response = http.post(
-        'http://16.171.65.142:3000/api/v1/auth/login',
-        payload,
-        {
-            headers: headers,
-        }
-    );
+    let response = http.post('http://16.171.65.142:3000/api/v1/', payload, {
+        headers: headers,
+    });
 
     check(response, {
         'is status 200': (r) => r.status === 200,
