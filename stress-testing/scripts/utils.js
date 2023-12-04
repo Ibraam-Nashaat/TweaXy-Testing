@@ -18,3 +18,21 @@ const getAuthenticatedRequestHeaders = () => {
     Authorization: "Bearer " + token,
   };
 };
+
+const generateRandomString = (length) => {
+  let chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let str = "";
+  for (let i = 0; i < length; i++) {
+    let index = Math.floor(Math.random() * chars.length);
+    let char = chars[index];
+    str += char;
+  }
+  return str;
+};
+
+const getUniqueEmail = () => {
+  let username = generateRandomString(8);
+  let domain = generateRandomString(5);
+  let email = username + "@" + domain + ".com";
+  return email;
+};
