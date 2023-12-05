@@ -1,17 +1,37 @@
 import http from "k6/http";
 import { TestUser } from "./Shared.js";
 
-export const getAuthenticatedRequestHeaders = () => {
-  let payload = JSON.stringify(TestUser[0]);
-  let headers = {
-    "Content-Type": "application/json",
-  };
+class TokenSingleton {
+  constructor() {
+    this.token = null;
+  }
 
-  let response = http.post("http://localhost:3001/api/v1/auth/login", payload, {
-    headers: headers,
-  });
+  async getToken() {
+    if (!this.token) {
+      let payload = JSON.stringify(TestUser[0]);
+      let headers = {
+        "Content-Type": "application/json",
+      };
 
-  let token = response.data.token;
+      let response = await http.post(
+        "http://localhost:3001/api/v1/auth/login",
+        payload,
+        {
+          headers: headers,
+        }
+      );
+
+      this.token = response.data.token;
+    }
+
+    return this.token;
+  }
+}
+
+const tokenSingleton = new TokenSingleton();
+
+export const getAuthenticatedRequestHeaders = async () => {
+  let token = await tokenSingleton.getToken();
 
   return {
     "Content-Type": "application/json",
