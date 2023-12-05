@@ -45,7 +45,7 @@ describe('Forget password Tests', () => {
         cy.get(`[data-test="${SignInSelectors.NEXT_BUTTON}"]`).click();
         cy.location('pathname').should('eq', '/forget-password');
         cy.document().contains(`${ForgetPasswordErrors.UNREGISTERED_EMAIL}`);
-        cy.wait(2000);
+        cy.wait(25000);
     });
 
     it('Change password with wrong verification code', () => {
@@ -62,11 +62,12 @@ describe('Forget password Tests', () => {
         cy.get(
             `[data-test="${SignInSelectors.FORGET_PASSWORD_VERIFICATION_FIELD}"]`
         ).type(`598df238`);
+        cy.get(`[data-test="${SignInSelectors.NEXT_BUTTON}"]`).click();
         cy.location('pathname').should('eq', '/forget-password');
         cy.document().contains(
             `${ForgetPasswordErrors.WRONG_VERIFICATION_CODE}`
         );
-        cy.wait(2000);
+        cy.wait(25000);
     });
 
     it('Change password with unmatching new password and confirmation new password', () => {
@@ -97,7 +98,7 @@ describe('Forget password Tests', () => {
         cy.document().contains(
             `${ForgetPasswordErrors.UNMATCHING_PASSWORD_AND_CONFIRMATION_PASSWORD}`
         );
-        cy.wait(2000);
+        cy.wait(25000);
     });
 
     it('Change password with new password having different validation errors', () => {
@@ -127,9 +128,15 @@ describe('Forget password Tests', () => {
         ).type('Kalawy');
         cy.get(`[data-test="${SignInSelectors.NEXT_BUTTON}"]`).click();
         cy.location('pathname').should('eq', '/forget-password');
-        cy.document().contains(`${ValidationErrors.PASSWORD_LENGTH_ERROR}`);
+        cy.document().contains(`${ForgetPasswordErrors.PASSWORD_LENGTH_ERROR}`);
 
         // Password missing special character error
+        cy.get(
+            `[data-test="${SignInSelectors.FORGET_PASSWORD_NEW_PASSWORD_FIELD}"]`
+        ).clear();
+        cy.get(
+            `[data-test="${SignInSelectors.FORGET_PASSWORD_CONFIRM_PASSWORD_FIELD}"]`
+        ).clear();
         cy.get(
             `[data-test="${SignInSelectors.FORGET_PASSWORD_NEW_PASSWORD_FIELD}"]`
         ).type('Kalawy12');
@@ -139,12 +146,18 @@ describe('Forget password Tests', () => {
         cy.get(`[data-test="${SignInSelectors.NEXT_BUTTON}"]`).click();
         cy.location('pathname').should('eq', '/forget-password');
         cy.document().contains(
-            `${ValidationErrors.PASSWORD_SPECIAL_CHARACTER_ERROR}`
+            `${ForgetPasswordErrors.PASSWORD_SPECIAL_CHARACTER_ERROR}`
         );
 
         //Password missing capital letter error
         cy.get(
             `[data-test="${SignInSelectors.FORGET_PASSWORD_NEW_PASSWORD_FIELD}"]`
+        ).clear();
+        cy.get(
+            `[data-test="${SignInSelectors.FORGET_PASSWORD_CONFIRM_PASSWORD_FIELD}"]`
+        ).clear();
+        cy.get(
+            `[data-test="${SignInSelectors.FORGET_PASSWORD_NEW_PASSWORD_FIELD}"]`
         ).type('kalawy@1234');
         cy.get(
             `[data-test="${SignInSelectors.FORGET_PASSWORD_CONFIRM_PASSWORD_FIELD}"]`
@@ -152,21 +165,33 @@ describe('Forget password Tests', () => {
         cy.get(`[data-test="${SignInSelectors.NEXT_BUTTON}"]`).click();
         cy.location('pathname').should('eq', '/forget-password');
         cy.document().contains(
-            `${ValidationErrors.PASSWORD_CAPITAL_LETTER_ERROR}`
+            `${ForgetPasswordErrors.PASSWORD_CAPITAL_LETTER_ERROR}`
         );
 
         // Password missing number error
         cy.get(
             `[data-test="${SignInSelectors.FORGET_PASSWORD_NEW_PASSWORD_FIELD}"]`
+        ).clear();
+        cy.get(
+            `[data-test="${SignInSelectors.FORGET_PASSWORD_CONFIRM_PASSWORD_FIELD}"]`
+        ).clear();
+        cy.get(
+            `[data-test="${SignInSelectors.FORGET_PASSWORD_NEW_PASSWORD_FIELD}"]`
         ).type('Kalawy@K');
         cy.get(
             `[data-test="${SignInSelectors.FORGET_PASSWORD_CONFIRM_PASSWORD_FIELD}"]`
         ).type('Kalawy@K');
         cy.get(`[data-test="${SignInSelectors.NEXT_BUTTON}"]`).click();
         cy.location('pathname').should('eq', '/forget-password');
-        cy.document().contains(`${ValidationErrors.PASSWORD_NUMBER_ERROR}`);
+        cy.document().contains(`${ForgetPasswordErrors.PASSWORD_NUMBER_ERROR}`);
 
         // Password missing small letter error
+        cy.get(
+            `[data-test="${SignInSelectors.FORGET_PASSWORD_NEW_PASSWORD_FIELD}"]`
+        ).clear();
+        cy.get(
+            `[data-test="${SignInSelectors.FORGET_PASSWORD_CONFIRM_PASSWORD_FIELD}"]`
+        ).clear();
         cy.get(
             `[data-test="${SignInSelectors.FORGET_PASSWORD_NEW_PASSWORD_FIELD}"]`
         ).type('KALAWY@1234');
@@ -176,7 +201,7 @@ describe('Forget password Tests', () => {
         cy.get(`[data-test="${SignInSelectors.NEXT_BUTTON}"]`).click();
         cy.location('pathname').should('eq', '/forget-password');
         cy.document().contains(
-            `${ValidationErrors.PASSWORD_SMALL_LETTER_ERROR}`
+            `${ForgetPasswordErrors.PASSWORD_SMALL_LETTER_ERROR}`
         );
         cy.wait(2000);
     });
