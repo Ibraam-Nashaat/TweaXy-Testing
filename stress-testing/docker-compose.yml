@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 networks:
   k6:
@@ -7,8 +7,8 @@ networks:
 services:
   influxdb:
     image: influxdb:1.8
-#    entrypoint: /bin/sh
-#    user: root
+    #    entrypoint: /bin/sh
+    #    user: root
     networks:
       - k6
       - grafana
@@ -19,8 +19,8 @@ services:
 
   grafana:
     image: grafana/grafana:8.5.21
-#    entrypoint: /bin/sh
-#    user: root
+    #    entrypoint: /bin/sh
+    #    user: root
     networks:
       - grafana
     ports:
@@ -47,12 +47,12 @@ services:
     depends_on:
       - influxdb
     networks:
-      - k6  
+      - k6
 
   k6:
     image: grafana/k6
-#    entrypoint: /bin/sh
-#    user: root
+    #    entrypoint: /bin/sh
+    #    user: root
     networks:
       - k6
     ports:

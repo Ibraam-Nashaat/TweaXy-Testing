@@ -1,13 +1,13 @@
-version: '3'
+version: "3"
 services:
-    backend:
-        stdin_open: true
-        tty: true
-        image: tweaxy/backend:v2
-        container_name: node-js
-        ports:
-            - '3000:3000'
-        networks:
-            - net
+  backend:
+    stdin_open: true
+    tty: true
+    image: tweaxy/backend:v2
+    container_name: node-js
+    ports:
+      - "3001:3000"
+    networks:
+      - net
 networks:
-    net:
+  net:

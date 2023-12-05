@@ -1,13 +1,13 @@
 import http from "k6/http";
 import { TestUser } from "./Shared.js";
 
-const getAuthenticatedRequestHeaders = () => {
+export const getAuthenticatedRequestHeaders = () => {
   let payload = JSON.stringify(TestUser[0]);
   let headers = {
     "Content-Type": "application/json",
   };
 
-  let response = http.post("http://localhost:3000/api/v1/auth/login", payload, {
+  let response = http.post("http://localhost:3001/api/v1/auth/login", payload, {
     headers: headers,
   });
 
@@ -30,7 +30,7 @@ const generateRandomString = (length) => {
   return str;
 };
 
-const getUniqueEmail = () => {
+export const getUniqueEmail = () => {
   let username = generateRandomString(8);
   let domain = generateRandomString(5);
   let email = username + "@" + domain + ".com";

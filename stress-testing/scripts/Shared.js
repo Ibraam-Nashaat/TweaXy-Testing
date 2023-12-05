@@ -1,6 +1,6 @@
 const SharedOptions = {
   thresholds: {
-    http_req_duration: [{ threshold: "p(95) < 20000", abortOnFail: true }],
+    http_req_duration: [{ threshold: "p(95) < 20000" }],
   },
   stages: [
     {
