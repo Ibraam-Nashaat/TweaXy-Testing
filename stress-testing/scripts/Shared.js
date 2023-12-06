@@ -24,7 +24,7 @@ const SharedOptions = {
 
 const TestUser = [
     {
-        UUID: 'Bessie@gmail.com',
+        UUID: 'Samson@gmail.com',
         password: '12345678tT@',
     },
     {
