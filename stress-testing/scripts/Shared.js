@@ -24,8 +24,8 @@ const SharedOptions = {
 
 const TestUser = [
     {
-        UUID: 'Aurelio@gmail.com',
-        password: '123456789mM@',
+        UUID: 'Vincenza@gmail.com',
+        password: '12345678tT@',
     },
     {
         UUID: '76a2bc6d-260d-4d21-84ee-e8aac0d61536@email.webhook.site',
