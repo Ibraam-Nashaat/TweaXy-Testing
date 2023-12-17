@@ -1,6 +1,6 @@
 const TestUser = [
     {
-        EMAIL: 'b605f73c-bacf-4f37-a700-28224533267d@email.webhook.site',
+        EMAIL: 'gjupxon@mydefipet.live',
         PASSWORD: 'Ahmed@1234',
     },
     {
@@ -8,13 +8,13 @@ const TestUser = [
         PASSWORD: '12345678tT@',
     },
     {
-        EMAIL: 'combtmp+c4pq5@gmail.com',
+        EMAIL: 'jhnbsomers+apjys@gmail.com',
         PASSWORD: 'Levi@1234',
         USERNAME: 'Levi',
         NEW_PASSWORD: 'Levi@12345',
     },
     {
-        EMAIL: 'li.agg.ei.2.9o@gmail.com',
+        EMAIL: 'an.sle.yla.r.a.0.47@googlemail.com',
         PASSWORD: 'Mikasa@1234',
         USERNAME: 'Mikasa',
     },
