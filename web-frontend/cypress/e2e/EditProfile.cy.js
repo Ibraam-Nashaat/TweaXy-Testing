@@ -365,5 +365,6 @@ describe('Edit Profile:', () => {
 
         cy.document().contains("Bio");
         cy.wait(3000);
+        
     });
 });
