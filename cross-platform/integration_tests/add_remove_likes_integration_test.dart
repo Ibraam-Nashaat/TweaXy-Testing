@@ -10,35 +10,38 @@ void main() {
 
   group('Add/Remove Likes Tests', () {
     testWidgets('Add/Remove Like test', (WidgetTester tester) async {
+      // Sign in
       app.main();
-      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
+
       var logInButton =
-          find.byKey(const ValueKey(SignInKeys.welcomePageLogInButton));
+            find.byKey(const ValueKey(SignInKeys.welcomePageLogInButton));
       await tester.tap(logInButton);
       await tester.pumpAndSettle();
+
       var emailTextField = find.byKey(const ValueKey(SignInKeys.emailFieldKey));
-      await tester.enterText(emailTextField,
-          'c54d7994-b997-47ee-8bdd-f8c1525e6102@email.webhook.site');
+      await tester.enterText(emailTextField, users[0][0]);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
       var nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-      await tester.ensureVisible(nextButton);
-      await tester.tap(nextButton);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-      var passwordTextField =
-          find.byKey(const ValueKey(SignInKeys.passwordFieldKey));
-      await tester.enterText(passwordTextField, 'aAbBcC\$123');
-      nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
       await tester.pumpAndSettle(const Duration(seconds: 1));
       await tester.ensureVisible(nextButton);
       await tester.tap(nextButton);
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
-      // TODO: Navigate to a page having tweets
-      // Could be the user's profile after posting a tweet
-      // Or a predefined profile with tweets
+      var passwordTextField =
+          find.byKey(const ValueKey(SignInKeys.passwordFieldKey));
+      await tester.enterText(passwordTextField, users[0][1]);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      nextButton = find.byKey(const ValueKey(SignInKeys.nextButtonKey));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.ensureVisible(nextButton);
+      await tester.tap(nextButton);
+      await tester.pumpAndSettle(const Duration(seconds: 3));
       
       final tweetContainer =
-          find.byKey(const ValueKey(HomePageKeys.tweetContainer));
+          find.byKey(const ValueKey(HomePageKeys.tweetContainer)).first;
       expect(tweetContainer, findsOneWidget);
 
       final tweetLikesCount = find.descendant(
