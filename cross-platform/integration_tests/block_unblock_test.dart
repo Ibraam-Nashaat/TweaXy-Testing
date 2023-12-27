@@ -7,7 +7,7 @@ import 'package:tweaxy/shared/keys/home_page_keys.dart';
 import 'package:tweaxy/shared/keys/profile_keys.dart';
 import 'package:tweaxy/shared/keys/settings_keys.dart';
 import 'package:tweaxy/shared/keys/sign_in_keys.dart';
-import 'package:tweaxy/shared/keys/update_password_keys.dart';
+import 'package:tweaxy/shared/keys/search_keys.dart';
 import 'utils/registered_users.dart';
 
 void main() {
