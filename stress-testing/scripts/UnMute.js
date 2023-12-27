@@ -15,7 +15,7 @@ export const setup = async () => {
 };
 export default function (header) {
     let payload = JSON.stringify({});
-    let response = http.post(
+    let response = http.del(
         'http://localhost:3000/api/v1/users/mute/Golden_Langworth',
         payload,
         {
@@ -27,6 +27,6 @@ export default function (header) {
 
 export function handleSummary(data) {
     return {
-        '../reports/MuteUser.html': htmlReport(data),
+        '../reports/UnmuteUser.html': htmlReport(data),
     };
 }
