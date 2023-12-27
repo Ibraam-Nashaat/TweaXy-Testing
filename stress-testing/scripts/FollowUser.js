@@ -26,6 +26,6 @@ export default function () {
 
 export function handleSummary(data) {
   return {
-    "../reports/checkUsernameUniquenessReport.html": htmlReport(data),
+    "../reports/FollowUser.html": htmlReport(data),
   };
 }
